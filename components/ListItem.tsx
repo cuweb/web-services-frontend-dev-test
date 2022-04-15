@@ -16,11 +16,11 @@ const ListItem = ({ data }: Props) => (
         <a>{data.name}</a>
       </Link>
     </h2>
-    <ul key={data.id}>
-      <li>Fullname: {data.biography.fullName}</li>
-      <li>Race: {data.appearance.race}</li>
-      <li>Alignment: {data.biography.alignment}</li>
-      <li>Publisher: {data.biography.publisher}</li>
+    <ul>
+      <li>Fullname: {data.biography.fullName ?? "N/A"}</li>
+      <li>Race: {data.appearance.race ?? "N/A"}</li>
+      <li>Alignment: {data.biography.alignment ?? "N/A"}</li>
+      <li>Publisher: {data.biography.publisher ?? "N/A"}</li>
     </ul>
   </>
 );
