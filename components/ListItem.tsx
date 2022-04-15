@@ -17,10 +17,10 @@ const ListItem = ({ data }: Props) => (
       </Link>
     </h2>
     <ul key={data.id}>
-      <li>Fullname: {data.fullname}</li>
-      <li>Race: {data.race}</li>
-      <li>Alignment: {data.alignment}</li>
-      <li>Publisher: {data.publisher}</li>
+      <li>Fullname: {data.biography.fullName}</li>
+      <li>Race: {data.appearance.race}</li>
+      <li>Alignment: {data.biography.alignment}</li>
+      <li>Publisher: {data.biography.publisher}</li>
     </ul>
   </>
 );
