@@ -16,7 +16,6 @@ export async function getStaticProps({ locale }: any) {
 }
 
 const Home: NextPage = () => {
-
   // Load Language
   const { t } = useTranslation("common");
 

@@ -45,6 +45,21 @@ const ListItem = ({ hero }: Props) => {
               <li>Power: {hero.powerstats.power ?? 0}%</li>
               <li>Combat: {hero.powerstats.combat ?? 0}%</li>
             </ul>
+            <section>
+              <h4>Tags</h4>
+              <div className={styles.cardAddTagButton}>
+                <input type="text" name="tags" placeholder="Add tag" />
+                <button>Add Tag</button>
+              </div>
+              <div className={styles.cardTags}>
+                <div className={styles.chip}>
+                  Love <span className={styles.chipRemove}>&times;</span>
+                </div>
+                <div className={styles.chip}>
+                  Hate <span className={styles.chipRemove}>&times;</span>
+                </div>
+              </div>
+            </section>
           </section>
         </div>
       </div>
