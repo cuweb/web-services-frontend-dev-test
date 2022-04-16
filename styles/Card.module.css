@@ -129,6 +129,11 @@
   margin-right: 5px;
 }
 
+.chip:hover {
+  background-color: #e2e2e2;
+  color: #808080;
+}
+
 .chipRemove {
   padding-left: 10px;
   font-weight: bold;
