@@ -1,4 +1,3 @@
-import * as React from "react";
 import styles from "../styles/Search.module.css";
 import { Hero } from "../types";
 

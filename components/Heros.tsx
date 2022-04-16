@@ -18,7 +18,7 @@ const Heros = () => {
         setLoading(false);
       });
   }, []);
-
+  
   if (isLoading) return <p>Loading...</p>;
   if (!heros) return <p>No heros data</p>;
 

@@ -1,4 +1,3 @@
-import * as React from "react";
 import ListItem from "./ListItem";
 import { Hero } from "../types";
 import styles from "../styles/Heros.module.css";
@@ -18,7 +17,7 @@ const List = ({ heros, search }: Props) => {
   return (
     <div className={styles.scroller}>
       {records.map((hero) => (
-        <ListItem data={hero} key={hero.id} />
+        <ListItem hero={hero} key={hero.id} />
       ))}
       {search.term && search.result.length < 1 ? "No results" : ""}
     </div>

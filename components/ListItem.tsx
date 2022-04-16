@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useCollapse from "react-collapsed";
@@ -7,44 +6,44 @@ import { Hero } from "../types";
 import styles from "../styles/Card.module.css";
 
 type Props = {
-  data: Hero;
+  hero: Hero;
 };
 
-const ListItem = ({ data }: Props) => {
+const ListItem = ({ hero }: Props) => {
   // Use collapase for power stats
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
   return (
     <div className={styles.card}>
       <Image
-        src={data.images.lg}
-        alt={data.slug}
+        src={hero.images.lg}
+        alt={hero.slug}
         width={160}
         height={240}
         className={styles.cardImage}
       />
-      <div className={` ${styles.cardContent} ${styles["card-" + data.biography.alignment]}`}>
+      <div className={` ${styles.cardContent} ${styles["card-" + hero.biography.alignment]}`}>
         <h2 className={styles.cardTitle}>
-          <Link href="/heros/[id]" as={`/heros/${data.id}`}>
-            <a>{data.name}</a>
+          <Link href="/heros/[id]" as={`/heros/${hero.id}`}>
+            <a>{hero.name}</a>
           </Link>
         </h2>
         <div className={styles.cardData}>
           <ul>
-            <li>Fullname: {data.biography.fullName ?? "N/A"}</li>
-            <li>Race: {data.appearance.race ?? "N/A"}</li>
-            <li>Alignment: {data.biography.alignment ?? "N/A"}</li>
-            <li>Publisher: {data.biography.publisher ?? "N/A"}</li>
+            <li>Fullname: {hero.biography.fullName ?? "N/A"}</li>
+            <li>Race: {hero.appearance.race ?? "N/A"}</li>
+            <li>Alignment: {hero.biography.alignment ?? "N/A"}</li>
+            <li>Publisher: {hero.biography.publisher ?? "N/A"}</li>
           </ul>
           <section {...getCollapseProps()}>
             <h3>Powers: </h3>
             <ul>
-              <li>Intelligence: {data.powerstats.intelligence ?? 0}%</li>
-              <li>Strength: {data.powerstats.strength ?? 0}%</li>
-              <li>Speed: {data.powerstats.speed ?? 0}%</li>
-              <li>Surability: {data.powerstats.durability ?? 0}%</li>
-              <li>Power: {data.powerstats.power ?? 0}%</li>
-              <li>Combat: {data.powerstats.combat ?? 0}%</li>
+              <li>Intelligence: {hero.powerstats.intelligence ?? 0}%</li>
+              <li>Strength: {hero.powerstats.strength ?? 0}%</li>
+              <li>Speed: {hero.powerstats.speed ?? 0}%</li>
+              <li>Surability: {hero.powerstats.durability ?? 0}%</li>
+              <li>Power: {hero.powerstats.power ?? 0}%</li>
+              <li>Combat: {hero.powerstats.combat ?? 0}%</li>
             </ul>
           </section>
         </div>
