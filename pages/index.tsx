@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
+import { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import useSWR from "swr";
@@ -7,6 +8,7 @@ import useSWR from "swr";
 import List from "../components/List";
 import Search from "../components/Search";
 import styles from "../styles/Heros.module.css";
+import { Hero } from "../types";
 
 export async function getStaticProps({ locale }: any) {
   return {
@@ -20,6 +22,9 @@ const Home: NextPage = () => {
   // Load Language
   const { t } = useTranslation("common");
 
+  // Set Search State
+  const [searchInput, setSearch] = useState("");
+
   // Fetch Data
   const { data, error } = useSWR(
     "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
@@ -27,6 +32,11 @@ const Home: NextPage = () => {
 
   if (error) return <>An error has occurred.</>;
   if (!data) return <>Loading...</>;
+
+  // Filter data based on search input
+  const heros: [] = data.filter((hero: Hero) => {
+    return hero.name.toLowerCase().includes(searchInput.toLowerCase());
+  });
 
   return (
     <>
@@ -40,8 +50,8 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <div className={styles.grid}>
             <div className={styles.paper}>
-              <Search />
-              <List items={data} />
+              <Search setSearch={setSearch} />
+              <List heros={heros} />
             </div>
           </div>
         </main>

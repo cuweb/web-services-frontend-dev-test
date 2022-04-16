@@ -4,15 +4,17 @@ import { Hero } from "../types";
 import styles from "../styles/Heros.module.css";
 
 type Props = {
-  items: Hero[];
+  heros: Hero[];
 };
 
-const List = ({ items }: Props) => (
-  <div className={styles.scroller}>
-    {items.map((item) => (
-      <ListItem data={item} key={item.id} />
-    ))}
-  </div>
-);
+const List = ({ heros }: Props) => {
+  return (
+    <div className={styles.scroller}>
+      {heros.map((hero) => (
+        <ListItem data={hero} key={hero.id} />
+      ))}
+    </div>
+  );
+};
 
 export default List;
