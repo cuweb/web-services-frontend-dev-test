@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import useSWR from "swr";
@@ -19,11 +19,12 @@ export async function getStaticProps({ locale }: any) {
 }
 
 const Home: NextPage = () => {
+
   // Load Language
   const { t } = useTranslation("common");
 
-  // Set Search State
-  const [searchInput, setSearch] = useState("");
+  // Set Heros State
+  const [heros, setHeros] = useState([]);
 
   // Fetch Data
   const { data, error } = useSWR(
@@ -32,11 +33,6 @@ const Home: NextPage = () => {
 
   if (error) return <>An error has occurred.</>;
   if (!data) return <>Loading...</>;
-
-  // Filter data based on search input
-  const heros: [] = data.filter((hero: Hero) => {
-    return hero.name.toLowerCase().includes(searchInput.toLowerCase());
-  });
 
   return (
     <>
@@ -50,8 +46,8 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <div className={styles.grid}>
             <div className={styles.paper}>
-              <Search setSearch={setSearch} />
-              <List heros={heros} />
+              <Search heros={data} setHeros={setHeros} />
+              <List heros={heros.length === 0 ? data : heros} />
             </div>
           </div>
         </main>

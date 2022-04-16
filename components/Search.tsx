@@ -1,18 +1,30 @@
 import * as React from "react";
 import styles from "../styles/Search.module.css";
+import { Hero } from "../types";
 
 type Props = {
-  setSearch: any;
+  heros: Hero[];
+  setHeros: any;
 };
 
-const Search = ({ setSearch }: Props) => {
+const Search = ({ heros, setHeros }: Props) => {
+
+  // Filter Heros
+  const filterHeros = (searchInput: string) => {
+    const filterd = heros.filter((hero: Hero) => {
+      return hero.name.toLowerCase().includes(searchInput.toLowerCase());
+    });
+    // Set heros
+    setHeros(filterd);
+  };
+
   return (
     <div className={styles.searchBar}>
       <input
         type="text"
         name="search"
         placeholder="Search by Name"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => filterHeros(e.target.value)}
       />
     </div>
   );
