@@ -9,6 +9,7 @@ type Props = {
   hero: Hero;
 };
 
+
 const ListItem = ({ hero }: Props) => {
   // Use collapase for power stats
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
