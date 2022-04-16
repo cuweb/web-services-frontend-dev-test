@@ -5,14 +5,22 @@ import styles from "../styles/Heros.module.css";
 
 type Props = {
   heros: Hero[];
+  search: {
+    term: boolean | string;
+    result: Hero[];
+  };
 };
 
-const List = ({ heros }: Props) => {
+const List = ({ heros, search }: Props) => {
+  // Check if data is from search result
+  const records: Hero[] = search.term ? search.result : heros;
+
   return (
     <div className={styles.scroller}>
-      {heros.map((hero) => (
+      {records.map((hero) => (
         <ListItem data={hero} key={hero.id} />
       ))}
+      {search.term && search.result.length < 1 ? "No results" : ""}
     </div>
   );
 };

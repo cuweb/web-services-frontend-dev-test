@@ -4,29 +4,34 @@ import { Hero } from "../types";
 
 type Props = {
   heros: Hero[];
-  setHeros: any;
+  setSearch: any;
 };
 
-const Search = ({ heros, setHeros }: Props) => {
-
+const Search = ({ heros, setSearch }: Props) => {
   // Filter Heros
   const filterHeros = (searchInput: string) => {
-    const filterd = heros.filter((hero: Hero) => {
-      return hero.name.toLowerCase().includes(searchInput.toLowerCase());
-    });
+    const search = {
+      term: searchInput === "" ? false : searchInput,
+      result: heros.filter((hero: Hero) => {
+        return hero.name.toLowerCase().includes(searchInput.toLowerCase());
+      }),
+    };
+
     // Set heros
-    setHeros(filterd);
+    setSearch(search);
   };
 
   return (
-    <div className={styles.searchBar}>
-      <input
-        type="text"
-        name="search"
-        placeholder="Search by Name"
-        onChange={(e) => filterHeros(e.target.value)}
-      />
-    </div>
+    <>
+      <div className={styles.searchBar}>
+        <input
+          type="text"
+          name="search"
+          placeholder="Search by Name"
+          onChange={(e) => filterHeros(e.target.value)}
+        />
+      </div>
+    </>
   );
 };
 

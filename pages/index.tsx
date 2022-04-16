@@ -1,14 +1,11 @@
 import type { NextPage } from "next";
-import { useTranslation } from "next-i18next";
-import { useEffect, useState } from "react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import useSWR from "swr";
 
-import List from "../components/List";
-import Search from "../components/Search";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import Heros from "../components/Heros";
 import styles from "../styles/Heros.module.css";
-import { Hero } from "../types";
 
 export async function getStaticProps({ locale }: any) {
   return {
@@ -23,17 +20,6 @@ const Home: NextPage = () => {
   // Load Language
   const { t } = useTranslation("common");
 
-  // Set Heros State
-  const [heros, setHeros] = useState([]);
-
-  // Fetch Data
-  const { data, error } = useSWR(
-    "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
-  );
-
-  if (error) return <>An error has occurred.</>;
-  if (!data) return <>Loading...</>;
-
   return (
     <>
       <div className={styles.container}>
@@ -46,8 +32,7 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <div className={styles.grid}>
             <div className={styles.paper}>
-              <Search heros={data} setHeros={setHeros} />
-              <List heros={heros.length === 0 ? data : heros} />
+              <Heros />
             </div>
           </div>
         </main>
