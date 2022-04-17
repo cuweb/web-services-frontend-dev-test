@@ -25,7 +25,6 @@ const Heros = () => {
             ? data.map((item: Hero, i: number) => Object.assign({}, item, localHeros[i]))
             : data
         );
-        //setHeros(data);
         setLoading(false);
       });
   }, []);

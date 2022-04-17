@@ -2,8 +2,6 @@ import ListItem from "./ListItem";
 import { Hero } from "../types";
 import styles from "../styles/Heros.module.css";
 
-import { useEffect } from "react";
-
 type Props = {
   heros: Hero[];
   search: {
