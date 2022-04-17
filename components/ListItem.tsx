@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useCollapse from "react-collapsed";
@@ -7,12 +8,28 @@ import styles from "../styles/Card.module.css";
 
 type Props = {
   hero: Hero;
+  updateHeros: any;
 };
 
-
-const ListItem = ({ hero }: Props) => {
+const ListItem = ({ hero, updateHeros }: Props) => {
   // Use collapase for power stats
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+
+  // Set states
+  const [tagInput, setTagInput] = useState("");
+
+  // Add tag
+  const setTag = (tag: string) => {
+    if (tag === "") return;
+    const tags: string[] = hero.tags ? hero?.tags?.filter((t: string) => t !== tag) : [];
+    tags.push(tag);
+    updateHeros({ ...hero, tags: [...tags] });
+  };
+
+  // Remove tag
+  const removeTag = (tag: string) => {
+    updateHeros({ ...hero, tags: [...hero.tags.filter((t: string) => t !== tag)] });
+  };
 
   return (
     <div className={styles.card}>
@@ -49,16 +66,23 @@ const ListItem = ({ hero }: Props) => {
             <section>
               <h4>Tags</h4>
               <div className={styles.cardAddTagButton}>
-                <input type="text" name="tags" placeholder="Add tag" />
-                <button>Add Tag</button>
+                <input
+                  type="text"
+                  name="tags"
+                  placeholder="Add tag"
+                  onChange={(e) => setTagInput(e.target.value)}
+                />
+                <button onClick={() => setTag(tagInput)}>Add Tag</button>
               </div>
               <div className={styles.cardTags}>
-                <div className={styles.chip}>
-                  Love <span className={styles.chipRemove}>&times;</span>
-                </div>
-                <div className={styles.chip}>
-                  Hate <span className={styles.chipRemove}>&times;</span>
-                </div>
+                {hero.tags?.map((tag: string) => (
+                  <div className={styles.chip} key={`${hero.id}-${tag}`}>
+                    {tag}
+                    <span className={styles.chipRemove} onClick={(e) => removeTag(tag)}>
+                      &times;
+                    </span>
+                  </div>
+                ))}
               </div>
             </section>
           </section>
