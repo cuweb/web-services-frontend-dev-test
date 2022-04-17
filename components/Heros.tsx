@@ -11,7 +11,7 @@ const Heros = () => {
 
   // Set states
   const [heros, setHeros] = useState<Hero[]>();
-  const [search, setSearch] = useState({ term: false, result: [] });
+  const [search, setSearch] = useState({ term: false, tag: false, result: [] });
   const [isLoading, setLoading] = useState(false);
 
   // Fetch Heros
@@ -29,7 +29,7 @@ const Heros = () => {
       });
   }, []);
 
-  // Update heros localstorage 
+  // Update heros localstorage
   useEffect(() => {
     setLocalHeros([...(heros ?? [])]);
   });

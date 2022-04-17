@@ -6,6 +6,7 @@ type Props = {
   heros: Hero[];
   search: {
     term: boolean | string;
+    tag: boolean | string;
     result: Hero[];
   };
   updateHeros: any;
@@ -13,14 +14,14 @@ type Props = {
 
 const List = ({ heros, search, updateHeros }: Props) => {
   // Check if data is from search result
-  const records: Hero[] = search.term ? search.result : heros;
+  const records: Hero[] = (search.term || search.tag) ? search.result : heros;
 
   return (
     <div className={styles.scroller}>
       {records.map((hero) => (
         <ListItem hero={hero} key={hero.id} updateHeros={updateHeros} />
       ))}
-      {search.term && search.result.length < 1 ? "No results" : ""}
+      {(search.term || search.tag) && search.result.length < 1 ? "No results" : ""}
     </div>
   );
 };

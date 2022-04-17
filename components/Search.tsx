@@ -8,23 +8,39 @@ type Props = {
 };
 
 const Search = ({ heros, setSearch }: Props) => {
+  // Tags
+  const tagList = ["love", "hate"];
+
   // Filters Tags
-  const [tagFilters, setTagFilters] = useState(["love", "hate"]);
+  const [tagFilter, setTagFilter] = useState("");
 
   // Filters Heros
   const [heroFilter, setHeroFilter] = useState("");
 
-  // Filter Heros
+  // Filters
   useEffect(() => {
     const search = {
       term: heroFilter === "" ? false : heroFilter,
+      tag: tagFilter === "" ? false : tagFilter,
       result: heros.filter((hero: Hero) => {
+        // Filter tag and term
+        if (tagFilter !== "" && heroFilter !== "") {
+          return (
+            hero.name.toLowerCase().includes(heroFilter.toLowerCase()) &&
+            hero?.tags?.includes(tagFilter)
+          );
+        }
+        // Filter tag only
+        if (tagFilter !== "") {
+          return hero?.tags?.includes(tagFilter);
+        }
+        // filter term only
         return hero.name.toLowerCase().includes(heroFilter.toLowerCase());
       }),
     };
     // Set heros
     setSearch(search);
-  });
+  }, [heroFilter, tagFilter, heros, setSearch]);
 
   return (
     <>
@@ -37,9 +53,13 @@ const Search = ({ heros, setSearch }: Props) => {
         />
       </div>
       <div className={styles.searchTags}>
-        {tagFilters.map((filter: any) => (
-          <div className={styles.chip} key={`'filter-${filter.tag}`}>
-            {filter.tag}
+        {tagList.map((tag: any) => (
+          <div
+            className={styles.chip}
+            key={`'filter-${tag}`}
+            onClick={() => setTagFilter(tagFilter === tag ? "" : tag)}
+          >
+            {tag}
           </div>
         ))}
       </div>
