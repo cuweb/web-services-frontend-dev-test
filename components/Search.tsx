@@ -34,7 +34,7 @@ const Search = ({ heros, setSearch }: Props) => {
         if (tagFilter !== "") {
           return hero?.tags?.includes(tagFilter);
         }
-        // filter term only
+        // Filter term only
         return hero.name.toLowerCase().includes(heroFilter.toLowerCase());
       }),
     };
@@ -55,7 +55,7 @@ const Search = ({ heros, setSearch }: Props) => {
       <div className={styles.searchTags}>
         {tagList.map((tag: any) => (
           <div
-            className={styles.chip}
+            className={`${styles.chip} ${tagFilter === tag ? styles.chipSelected : ""}`}
             key={`'filter-${tag}`}
             onClick={() => setTagFilter(tagFilter === tag ? "" : tag)}
           >

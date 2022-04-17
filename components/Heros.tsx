@@ -39,7 +39,7 @@ const Heros = () => {
 
   // Update heros
   const updateHeros = (hero: Hero) => {
-    const records = heros.map((item: any) =>
+    const records = heros.map((item: Hero) =>
       item.id === hero.id ? Object.assign({}, item, hero) : item
     );
     setHeros([...records]);

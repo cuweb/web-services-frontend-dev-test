@@ -14,7 +14,7 @@ type Props = {
 
 const List = ({ heros, search, updateHeros }: Props) => {
   // Check if data is from search result
-  const records: Hero[] = (search.term || search.tag) ? search.result : heros;
+  const records: Hero[] = search.term || search.tag ? search.result : heros;
 
   return (
     <div className={styles.scroller}>

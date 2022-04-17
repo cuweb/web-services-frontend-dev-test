@@ -15,19 +15,29 @@ const ListItem = ({ hero, updateHeros }: Props) => {
   // Use collapase for power stats
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
-  // Set states
+  // Set tag input
   const [tagInput, setTagInput] = useState("");
 
   // Add tag
   const setTag = (tag: string) => {
     if (tag === "") return;
+
+    // Check if tag already exists
     const tags: string[] = hero.tags ? hero?.tags?.filter((t: string) => t !== tag) : [];
+
+    // Push to temp array
     tags.push(tag);
+
+    // Sync heros
     updateHeros({ ...hero, tags: [...tags] });
+
+    // Clean up tag input
+    setTagInput("");
   };
 
   // Remove tag
   const removeTag = (tag: string) => {
+    // Sync heros
     updateHeros({ ...hero, tags: [...hero.tags.filter((t: string) => t !== tag)] });
   };
 
@@ -40,7 +50,7 @@ const ListItem = ({ hero, updateHeros }: Props) => {
         height={240}
         className={styles.cardImage}
       />
-      <div className={` ${styles.cardContent} ${styles["card-" + hero.biography.alignment]}`}>
+      <div className={`${styles.cardContent} ${styles["card-" + hero.biography.alignment]}`}>
         <h2 className={styles.cardTitle}>
           <Link href="/heros/[id]" as={`/heros/${hero.id}`}>
             <a>{hero.name}</a>
@@ -70,6 +80,7 @@ const ListItem = ({ hero, updateHeros }: Props) => {
                   type="text"
                   name="tags"
                   placeholder="Add tag"
+                  value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                 />
                 <button onClick={() => setTag(tagInput)}>Add Tag</button>
